@@ -1,0 +1,96 @@
+================================== READEME ============================================= 
+Coupon System Project number 2
+author: Ronit After
+date: 22/12/21
+_______________________________ PROJECT REQUIREMENTS ___________________________________
+MySQL Workbench version:8.0
+spring boot:
+spring-boot-starter version: 2.5.5
+spring-boot-starter-data-jpa
+mysql-connector-java
+artifactId>spring-boot-maven-plugin
+user name: "root", 
+password:"wNp2Y2"
+url: spring.datasource.url=jdbc:mysql://localhost:3306/spring_couponSystem?createDatabaseIfNotExist=true
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.show-sql: true
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.BasicBinder: TRACE
+Eclipse IDE for Enterprise Java and Web Developers
+Version: 4.19.0.20210311-1200
+OS: Windows 10, v.10.0, x86_64 / win32
+Java version: 11.0.10
+ ______________________________ PROJECT DESCRIPTION _____________________________________
+a client-server coupon-system, that is built with Spring Boot Architecture, and is used
+to manage activities in a company, customer and an admin level.
+
+Spring Boot - a layered architecture in which each layer communicates
+with the layer directly below/above it. 
+The layers:
+
+Service layer - exposes the business logic of the project, which uses repository. 
+encapsulate business logic into a single place to promote
+code reuse. provides separation of concern and provides code modularity.
+
+Repository Layer - directly accessing the database by using custom queries 
+and Spring Data JPA queries. it is a data access pattern, in which data transfer 
+objects are passed into a repository object that manages CRUD operations.
+
+Entities - 
+admin: can add, delete, get or update companies, customers or coupons in the coupon-system.
+company: can login, add, delete or update coupons, get all its coupons and get all its Details.
+customer: can login, Purchase coupons, get all customer coupons and get all customer details.
+ ________________________________  DDL TABLES  ____________________________________________
+COUPONS: 
+CREATE TABLE `coupons` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `amount` int NOT NULL,
+  `category_id` int DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `price` double NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `company_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKk6q82cn7h50gqe8olmne38ck0` (`company_id`),
+  CONSTRAINT `FKk6q82cn7h50gqe8olmne38ck0` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+=============================================================================================
+CUSTOMERS_COUPONS :
+CREATE TABLE `coupons_customers` (
+  `customer_id` int NOT NULL,
+  `coupon_id` int NOT NULL,
+  KEY `FK5m64ob3m2rjdyn6rrvh498nqw` (`coupon_id`),
+  KEY `FKd6xqandst6j0mi8p7b6m9i2lw` (`customer_id`),
+  CONSTRAINT `FK5m64ob3m2rjdyn6rrvh498nqw` FOREIGN KEY (`coupon_id`) REFERENCES `coupons` (`id`),
+  CONSTRAINT `FKd6xqandst6j0mi8p7b6m9i2lw` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+=============================================================================================
+ CATEGORIES
+CREATE TABLE `categories` (_
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+=============================================================================================
+COMPANY:
+CREATE TABLE `company` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+=============================================================================================
+ CUSTOMERS:
+CREATE TABLE `customers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+=============================================================================================

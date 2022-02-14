@@ -1,0 +1,20 @@
+ * ResponseEntity =  represents the whole HTTP response: 
+ * status code, headers, and body. it is used  for configuring the HTTP response. 
+ * If we want to use it, we have to return it from the end point; 
+ * ResponseEntity is a generic type.
+ * 
+ * @RestController:
+ * mapping of the web services
+ * What @RestController will do?
+  it is used to create RESTful web services using Spring MVC. 
+  it takes care of mapping request data to the defined request 
+  handler method. 
+  Once response body is generated from the handler method, 
+  it converts it to JSON or XML response
+ *  
+ *  
+ * @RequestMapping():
+ *  general mapping in the controller
+ *  its one of the most common annotation used in Spring Web applications. 
+ *  This annotation maps HTTP requests to handler methods of MVC and REST controllers. 
+ *  
