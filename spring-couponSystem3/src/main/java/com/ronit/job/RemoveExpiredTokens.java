@@ -22,7 +22,7 @@ public class RemoveExpiredTokens {
 	public TokenManager tokenManager;
 	
 	
-	@Scheduled(fixedRate=1000*60*5)
+	//@Scheduled(fixedRate=1000*60*5)
 	public void run() {
 		System.out.println("removed");
 		tokenManager.removeToken(null);

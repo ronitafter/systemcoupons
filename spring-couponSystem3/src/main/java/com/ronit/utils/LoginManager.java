@@ -53,7 +53,7 @@ public class LoginManager {
 
 			 break;
 		case CUSTOMER:
-			clientService = context.getBean(CustomerServie.class);
+			clientService = context.getBean(CustomerService.class);
 			String token2 = tokenManager.generateToken(clientType);
 
 			break;

@@ -14,7 +14,7 @@ import com.ronit.enums.Category;
 import com.ronit.enums.ClientType;
 import com.ronit.exceptions.CouponSystemException;
 import com.ronit.services.CompanyService;
-import com.ronit.services.CustomerServie;
+import com.ronit.services.CustomerService;
 import com.ronit.utils.LoginManager;
 
 //@Component
@@ -33,7 +33,7 @@ public class CustomerTester implements CommandLineRunner {
 	public void startCustomerTester() {
 		LoginManager loginManager = context.getBean(LoginManager.class);
 		try {
-			CustomerServie customerServie = (CustomerServie) loginManager.login("customer3@", "customer323",
+			CustomerService customerServie = (CustomerService) loginManager.login("customer3@", "customer323",
 					ClientType.CUSTOMER);
 			System.out.println("loged in as CUSTOMER");
 			
@@ -59,20 +59,20 @@ public class CustomerTester implements CommandLineRunner {
 		}
 	}
 
-	public void PurchaseCoupon(CustomerServie customerServie) throws CouponSystemException {
-		customerServie.PurchaseCoupon(2);
+	public void PurchaseCoupon(CustomerService customerService) throws CouponSystemException {
+		customerService.PurchaseCoupon(2);
 
 	}
 //
-	public List<Coupon> getCustomerCoupons(CustomerServie customerServie) throws CouponSystemException {
-		for (Coupon coupon : customerServie.getCustomerCoupons(1, 3)) {
+	public List<Coupon> getCustomerCoupons(CustomerService customerService) throws CouponSystemException {
+		for (Coupon coupon : customerService.getCustomerCoupons(1, 3)) {
 			System.out.println(coupon);
 			
 		}
 		return null;
 	}
 
-	public List<Coupon> getCustomerCouponsByPrice(CustomerServie customerServie) throws CouponSystemException {
+	public List<Coupon> getCustomerCouponsByPrice(CustomerService customerServie) throws CouponSystemException {
 		for (Coupon coupon : customerServie.getCustomerCouponsByPrice(1, 10)) {
 			System.out.println(coupon);
 		}
@@ -81,12 +81,12 @@ public class CustomerTester implements CommandLineRunner {
 
 	}
 
-	public Customer getAllCustomerDetails(CustomerServie customerServie) throws CouponSystemException {
+	public Customer getAllCustomerDetails(CustomerService customerServie) throws CouponSystemException {
 		return customerServie.getAllCustomerDetails(3);
 
 	}
 
-	public List<Coupon> getAllCustomerCoupons(CustomerServie customerServie) throws CouponSystemException {
+	public List<Coupon> getAllCustomerCoupons(CustomerService customerServie) throws CouponSystemException {
 		for (Coupon coupon : customerServie.getAllCustomerCoupons(2)) {
 			 System.out.println(coupon);
 		}

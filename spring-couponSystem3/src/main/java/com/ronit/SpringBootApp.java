@@ -26,10 +26,10 @@ public class SpringBootApp {
 //		2.uncomment the wanted method for testing
 //		3.uncomment:
 	SpringApplication.run(SpringBootApp.class);
-	ApplicationContext context = SpringApplication.run(SpringBootApp.class);
+//	ApplicationContext context = SpringApplication.run(SpringBootApp.class);
 //	initCustomers(context.getBean(StoreService.class));
-	AdminControllerTester tester = context.getBean(AdminControllerTester.class);
-	tester.testApi();
+//	AdminControllerTester tester = context.getBean(AdminControllerTester.class);
+//	tester.testApi();
 //}
 //		
 		 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.ronit.entities.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ronit.beans.ResponseDto;
+//import com.ronit.beans.ResponseDto;
 import com.ronit.entities.Company;
 import com.ronit.entities.Coupon;
 import com.ronit.entities.LoginRequest;
@@ -93,7 +94,8 @@ public class CompanyController extends ClientController {
 //	}
 
 	@PostMapping
-	public ResponseEntity<?> addCoupon(@RequestHeader("authorization") String token, @RequestBody Coupon coupon)
+	public ResponseEntity<?> addCoupon(//@RequestHeader("authorization") String token,
+									   @RequestBody Coupon coupon)
 			throws AuthorizationException {
 //		try {
 //			companyService.addCoupon(coupon);
@@ -106,7 +108,7 @@ public class CompanyController extends ClientController {
 ////			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 //		}
 
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 			ResponseDto responsdto = new ResponseDto(true, "coupon added");
 			return new ResponseEntity<>(responsdto, HttpStatus.CREATED);
 //			Integer id = testRepository.addCoupon(coupon);
@@ -120,9 +122,10 @@ public class CompanyController extends ClientController {
 	}
 
 	@PutMapping
-	public ResponseEntity<?> UpdateCoupon(@RequestHeader("authorization") String token, @RequestBody Coupon coupon)
+	public ResponseEntity<?> UpdateCoupon(//@RequestHeader("authorization") String token,
+										  @RequestBody Coupon coupon)
 			throws CouponSystemException, AuthorizationException {
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 			companyService.UpdateCoupon(coupon);
 			return ResponseEntity.ok(coupon);
 		} else {
@@ -134,11 +137,11 @@ public class CompanyController extends ClientController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteCoupon(@RequestHeader("authorization") String token,
+	public ResponseEntity<?> deleteCoupon(//@RequestHeader("authorization") String token,
 			@PathVariable("couponId") int couponId, @PathVariable("companyId") int companyId)
 			throws CouponSystemException, AuthorizationException {
 
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 			companyService.deleteCoupon(couponId, companyId);
 			;
 			return ResponseEntity.ok().build();
@@ -157,20 +160,22 @@ public class CompanyController extends ClientController {
 //		}
 //	}
 
-	@GetMapping
-	public List<Coupon> getCompanyCoupons(@RequestHeader("authorization") String token, @PathVariable int categoryId)
+	@GetMapping("/companyCouponsByCategory/{categoryId}")
+	public List<Coupon> getCompanyCoupons(//@RequestHeader("authorization") String token,
+										  @PathVariable int categoryId)
 			throws CouponSystemException, AuthorizationException {
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 		return companyService.getCompanyCoupons(categoryId);
 		}else {
 			throw new AuthorizationException("company not authorized");
 		}
 	}
 
-	@GetMapping
-	public List<Coupon> getCompanyCouponsByPrice(@RequestHeader("authorization") String token, double maxPrice)
+	@GetMapping("/companyCouponsByPrice/{maxPrice}")
+	public List<Coupon> getCompanyCouponsByPrice(//@RequestHeader("authorization") String token,
+												 @PathVariable double maxPrice)
 			throws CouponSystemException, AuthorizationException {
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 			return companyService.getCompanyCouponsByPrice(maxPrice);
 		} else {
 			throw new AuthorizationException("company not authorized");
@@ -178,10 +183,10 @@ public class CompanyController extends ClientController {
 		}
 	}
 
-	@GetMapping
-	public List<Coupon> getAllCompanyCoupons(@RequestHeader("authorization") String token)
+	@GetMapping("/companyCoupons")
+	public List<Coupon> getAllCompanyCoupons()//@RequestHeader("authorization") String token)
 			throws CouponSystemException, AuthorizationException {
-		if (tokenManager.isTokenExists(token)) {
+		if (true){//tokenManager.isTokenExists(token)) {
 			return companyService.getAllCompanyCoupons();
 		} else {
 			throw new AuthorizationException("company not authorized");
@@ -190,11 +195,12 @@ public class CompanyController extends ClientController {
 
 	}
 
-	@GetMapping
-	public Company getCompanyDetails(@RequestHeader("authorization") String token, int comanyId)
+	@GetMapping("/details/{companyId}")
+	public Company getCompanyDetails(//@RequestHeader("authorization") String token,
+									 @PathVariable int companyId)
 			throws CouponSystemException, AuthorizationException {
-		if (tokenManager.isTokenExists(token)) {
-			return companyService.getCompanyDetails(comanyId);
+		if (true){//tokenManager.isTokenExists(token)) {
+			return companyService.getCompanyDetails(companyId);
 		} else {
 			throw new AuthorizationException("company not authorized");
 

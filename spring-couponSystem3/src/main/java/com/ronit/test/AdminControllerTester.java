@@ -14,7 +14,7 @@ import com.ronit.entities.Company;
 import com.ronit.entities.Coupon;
 import com.ronit.enums.Category;
 import com.ronit.services.AdminService;
-import com.sapir.beans.CustomerList;
+//import com.sapir.beans.CustomerList;
 
 @Component
 public class AdminControllerTester {
