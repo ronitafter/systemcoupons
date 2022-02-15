@@ -3,6 +3,7 @@ package com.ronit.controllers;
 import java.util.List;
 
 
+import com.ronit.test.AdminControllerTester;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,8 @@ import com.ronit.utils.TokenManager;
 public class AdminController extends ClientController {
 
 	
-	
+	@Autowired
+	AdminControllerTester adminControllerTester;
 	
 	@Autowired
 	private LoginManager loginManager;
@@ -78,8 +80,15 @@ public class AdminController extends ClientController {
 	}
 
 	@GetMapping("/test")
-	public void logout() {
+	public void test() {
 		System.out.println("+++++++++++++++++");
+	}
+
+	@GetMapping("/fillData")
+	public void fillDataInDb() {
+		System.out.println("----------------");
+		adminControllerTester.addOneCompany();
+		System.out.println("!!!!!!!!!!!!!!!");
 	}
 
 	@GetMapping("/logout")

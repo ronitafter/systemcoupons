@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ronit.exceptions.CouponSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,42 @@ public class AdminControllerTester {
 	// Test RestTemplate to invoke the APIs.
 
 	@Autowired
-		private RestTemplate restTemplate = new RestTemplate();
-		public void testApi() {
-			
-						
+	private RestTemplate restTemplate = new RestTemplate();
+
+	@Autowired
+	private AdminService adminService;
+
+	public void addOneCompany()  {
+//
+//********************** ADD Company ********************************
+		Company company = createCompanyWithoutCoupons();
+
+		// with coupons - does not work - need to fix it!!
+		//Company company = createCompanyWithCoupons();
+
+		System.out.println(company);
+		try {
+			adminService.addCompany(company);
+		} catch (CouponSystemException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Company createCompanyWithoutCoupons() {
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		Company company = new Company("aaa", "aaa@", "aaa123", coupons);
+		return company;
+	}
+
+	private Company createCompanyWithCoupons() {
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		coupons.add(new Coupon(Category.FOOD, "title5", "description5", Date.valueOf("2021-12-18"),
+				Date.valueOf("2021-12-19"), 5, 100.00, "image5"));//
+		Company company = new Company("aaa", "aaa@", "aaa123", coupons);
+		return company;
+	}
+
+	public void testApi() {
 //		
 //********************** ADD Company ********************************
 			List<Coupon> coupons = new ArrayList<Coupon>();
@@ -35,7 +68,7 @@ public class AdminControllerTester {
 					Date.valueOf("2021-12-19"), 5, 100.00, "image5"));//			
 			Company company = new Company("aaa", "aaa@","aaa123", coupons);
 			System.out.println(company);
-		ResponseEntity<Long> response = restTemplate.postForEntity(String.format("http://localhost:8080/company"), company,Long.class);
+		ResponseEntity<Long> response = restTemplate.postForEntity(String.format("http://localhost:8080/admin/company"), company,Long.class);
 		System.out.println("response statuse: " + response.getStatusCodeValue() );
 		System.out.println("response body: " + response.getBody());
 		System.out.println(company);
