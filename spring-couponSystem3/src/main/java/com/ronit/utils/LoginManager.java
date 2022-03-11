@@ -17,6 +17,7 @@ import com.ronit.services.AdminService;
 import com.ronit.services.ClientService;
 import com.ronit.services.CompanyService;
 import com.ronit.services.CustomerService;
+import com.ronit.services.CustomerServie;
 
 @Component
 public class LoginManager {
@@ -54,12 +55,12 @@ public class LoginManager {
 			 break;
 		case CUSTOMER:
 			clientService = context.getBean(CustomerServie.class);
-			String token2 = tokenManager.generateToken(clientType);
+//			String token2 = tokenManager.generateToken(clientType);
 
 			break;
 		case ADMINISTRATOR:
 			clientService = context.getBean(AdminService.class);
-			String token3 = tokenManager.generateToken(clientType);
+//			String token3 = tokenManager.generateToken(clientType);
 			break;
 		}
 

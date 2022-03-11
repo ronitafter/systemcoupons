@@ -4,6 +4,8 @@ import java.sql.Date;
 
 
 
+
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +23,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ronit.enums.Category;
 
 @Entity
@@ -31,6 +36,7 @@ public class Coupon {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "company_id")
+	@JsonBackReference
 	private Company company;
 	@Column(name = "category_id")
 	@Enumerated(value = EnumType.ORDINAL)

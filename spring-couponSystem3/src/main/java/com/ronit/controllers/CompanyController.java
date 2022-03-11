@@ -3,6 +3,7 @@ package com.ronit.controllers;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,12 @@ import com.ronit.entities.LoginRequest;
 import com.ronit.enums.ClientType;
 import com.ronit.exceptions.AuthorizationException;
 import com.ronit.exceptions.CouponSystemException;
-import com.ronit.exceptions.InvalidOperationException;
 import com.ronit.job.RemoveExpiredTokens;
-import com.ronit.services.AdminService;
 import com.ronit.services.CompanyService;
 import com.ronit.utils.LoginManager;
 import com.ronit.utils.TokenManager;
+import com.ronit.exceptions.LoginException;
+
 
 @RestController
 @RequestMapping("/company")
@@ -46,55 +47,63 @@ public class CompanyController extends ClientController {
 
 	private RemoveExpiredTokens removeExpiredTokens;
 
-//	@PostMapping("/login")
-//	public boolean login(@RequestBody LoggedIn loggedin) throws CouponSystemException {
-//		return companyService.login(loggedin.getEmail(), loggedin.getPassword());		
-//	}
+
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest)
-			throws AuthorizationException, CouponSystemException {
+	//	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest)
+	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest)
+			throws AuthorizationException, LoginException {
 		// return adminService.login(loggedin.getEmail(), loggedin.getPassword());
 //		return loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), ClientType.ADMINISTRATOR);		//1- try to login
 		try {
-			loginRequest.getClientType();
-			companyService = (CompanyService) loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(),
-					ClientType.COMPANY);
-			String token = removeExpiredTokens.getNewToken();
+			
+//			loginRequest.getClientType();
+//			adminService = (AdminService) loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(),
+//					ClientType.ADMINISTRATOR);
+			loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), ClientType.COMPANY);
+//			String token = removeExpiredTokens.getNewToken();
+			String token = tokenManager.generateToken(ClientType.COMPANY).toString();
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		} catch (Exception e) {
 			// else -> return failure string "Fail to login"
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		// if login succeed -> return TOKEN
-		// generate token here!
-		// TokenManager.getNewToken()
-
 	}
 
+	
 	@GetMapping("/logout")
 	public void logout(@RequestHeader("authorization") String token) {
 		loginManager.logout(token);
 	}
 
-//	
-//	@PostMapping("/addcoupon")
-//	public void addCoupon(Coupon coupon, HttpSession session) throws CouponSystemException {
-//		
-//		companyService.addCoupon(coupon, getLoggedIn(session).getId());
-//		
-//		if (this.couponrepository.existsByCompanyIdAndTitle(companyId, coupon.getTitle())) {
-//			throw new CouponSystemException("addCoupon faild - coupon already exist for this company ");
-//		}
-//
-//		Company company = companyrepository.findById(companyId).get();
-//		company.addCoupon(coupon);
-//
-//	}
+	
 
-	@PostMapping
+//	@PostMapping("/login")
+//	public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest)
+//			throws AuthorizationException, CouponSystemException, LoginException {
+//		// return adminService.login(loggedin.getEmail(), loggedin.getPassword());
+////		return loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), ClientType.ADMINISTRATOR);		//1- try to login
+//		try {
+////			loginRequest.getClientType();
+////			companyService = (CompanyService) loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(),
+////					ClientType.COMPANY);
+//			loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), loginRequest.getClientType());
+//			String token = removeExpiredTokens.getNewToken();
+//			return new ResponseEntity<>(token, HttpStatus.OK);
+//		} catch (Exception e) {
+//			// else -> return failure string "Fail to login"
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+//	}
+//
+//	@GetMapping("/logout")
+//	public void logout(@RequestHeader("authorization") String token) {
+//		loginManager.logout(token);
+//	}
+// ----------------------addCoupon------------------
+	@PostMapping("/coupon")
 	public ResponseEntity<?> addCoupon(@RequestHeader("authorization") String token, @RequestBody Coupon coupon)
-			throws AuthorizationException {
+			throws AuthorizationException, CouponSystemException {
 //		try {
 //			companyService.addCoupon(coupon);
 //			ResponseDto responsdto = new ResponseDto(true, "coupon added");
@@ -107,6 +116,7 @@ public class CompanyController extends ClientController {
 //		}
 
 		if (tokenManager.isTokenExists(token)) {
+			companyService.addCoupon(coupon, companyService.getCompanyId());
 			ResponseDto responsdto = new ResponseDto(true, "coupon added");
 			return new ResponseEntity<>(responsdto, HttpStatus.CREATED);
 //			Integer id = testRepository.addCoupon(coupon);
@@ -119,21 +129,26 @@ public class CompanyController extends ClientController {
 		}
 	}
 
-	@PutMapping
+// ----------------------UpdateCoupon------------------
+
+	//@Valid 
+	@PutMapping("/coupon")
 	public ResponseEntity<?> UpdateCoupon(@RequestHeader("authorization") String token, @RequestBody Coupon coupon)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {
 			companyService.UpdateCoupon(coupon);
-			return ResponseEntity.ok(coupon);
 		} else {
 			throw new AuthorizationException("company not authorized");
 
 //		ResponseDto responsdto = new ResponseDto(false, "coupon not added");
 //		return new ResponseEntity<>(responsdto, HttpStatus.BAD_REQUEST);
 		}
+		return ResponseEntity.ok(coupon);
 	}
-
-	@DeleteMapping("/{id}")
+	
+// ----------------------deleteCoupon------------------
+	//@Valid
+	@DeleteMapping("/coupon/{id}")
 	public ResponseEntity<?> deleteCoupon(@RequestHeader("authorization") String token,
 			@PathVariable("couponId") int couponId, @PathVariable("companyId") int companyId)
 			throws CouponSystemException, AuthorizationException {
@@ -141,12 +156,12 @@ public class CompanyController extends ClientController {
 		if (tokenManager.isTokenExists(token)) {
 			companyService.deleteCoupon(couponId, companyId);
 			;
-			return ResponseEntity.ok().build();
 		} else {
 			throw new AuthorizationException("company not authorized");
 //			ResponseDto responsdto = new ResponseDto(false, "coupon not added");
 //			return new ResponseEntity<>(responsdto, HttpStatus.BAD_REQUEST);
 		}
+		return ResponseEntity.ok().build();
 	}
 //		try {
 //			companyService.deleteCoupon(couponId, companyId);
@@ -157,7 +172,10 @@ public class CompanyController extends ClientController {
 //		}
 //	}
 
-	@GetMapping
+// ----------------------getCompanyCouponsbycategory------------------
+	//@Valid 
+	@GetMapping("/coupon/category")
+	//	public List<Coupon> getAllCompanies(@Valid @RequestParam Category category)
 	public List<Coupon> getCompanyCoupons(@RequestHeader("authorization") String token, @PathVariable int categoryId)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {
@@ -167,18 +185,22 @@ public class CompanyController extends ClientController {
 		}
 	}
 
-	@GetMapping
+	
+// ----------------------getCompanyCouponsByPrice------------------
+	@GetMapping("/coupon/{maxPrice}")
+	//	public ArrayList<Coupon> getAllCompanies(@Valid @PathVariable("maxPrice") int maxPrice)
 	public List<Coupon> getCompanyCouponsByPrice(@RequestHeader("authorization") String token, double maxPrice)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {
 			return companyService.getCompanyCouponsByPrice(maxPrice);
+
 		} else {
 			throw new AuthorizationException("company not authorized");
 
 		}
 	}
-
-	@GetMapping
+// ----------------------getAllCompanyCoupons------------------
+	@GetMapping("/company")
 	public List<Coupon> getAllCompanyCoupons(@RequestHeader("authorization") String token)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {
@@ -189,8 +211,9 @@ public class CompanyController extends ClientController {
 		}
 
 	}
-
-	@GetMapping
+	
+// ----------------------getCompanyDetails------------------
+	@GetMapping("/company")
 	public Company getCompanyDetails(@RequestHeader("authorization") String token, int comanyId)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {

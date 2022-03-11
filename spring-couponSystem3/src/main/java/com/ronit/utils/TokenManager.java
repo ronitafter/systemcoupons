@@ -3,6 +3,7 @@ package com.ronit.utils;
 import java.sql.Date;
 
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -22,40 +23,55 @@ import com.ronit.enums.ClientType;
 //@AllArgsConstructor
 public class TokenManager {
 	
+	
+// do i need another constructor?
+	public TokenManager(Map<String, TokenInfo> tokens) {
+		super();
+		this.tokens = tokens;
+	}
+	
+	// do i need getters and setters?
+	public Map<String, TokenInfo> getTokens() {
+		return tokens;
+	}
 
-//	-------------
-	private Map<String, TokenInfo> tokens2;
+	public void setTokens(Map<String, TokenInfo> tokens) {
+		this.tokens = tokens;
+	}
+
+
+	@Autowired
+	private Map<String, TokenInfo> tokens;
 	
 	public void TokenManager1() {
-		tokens2 = new HashMap<>();
+		tokens = new HashMap<>();
 	}
 	
 	public boolean isTokenExists(String token) {
-		return tokens2.get(token) !=null;
+		return tokens.get(token) !=null;
 	}
+
 	
 	public String generateToken(ClientType type) {
 		TokenInfo info = TokenInfo.generate(type);
-		tokens2.put(info.getToken(), info);
+		tokens.put(info.getToken(), info);
 		return info.getToken();			
 	}
 	
-	
-	
 	public void removeToken(String token) {
-		tokens2.remove(token);
+		tokens.remove(token);
 	}
 	
+	//?
 	public void returnExpired() {
-		tokens2.entrySet().removeIf((entry) -> isTokenExpired(entry.getValue().getCreationTime()));
+		tokens.entrySet().removeIf((entry) -> isTokenExpired(entry.getValue().getCreationTime()));
 		
 	}
-//	
-	
-	
+			
 	public void removeExpired() {
-		tokens2.entrySet().removeIf((entry)-> 
+		tokens.entrySet().removeIf((entry)-> 
 		 new Date(0).after(entry.getValue().getCreationTime()));
+		//getCreationDate
 		
 	}
 	

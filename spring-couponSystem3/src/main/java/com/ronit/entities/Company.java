@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "company")
 public class Company {
@@ -20,6 +22,7 @@ public class Company {
 	private String name;
 	private String email;
 	private String password;
+	@JsonManagedReference
 	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH
 			,CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "company")
 	private List<Coupon> coupons;

@@ -31,6 +31,19 @@ public class CompanyService extends ClientService {
 	private CompanyRepository companyrepository;
 
 	private int companyId;
+	
+	
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
+	}
+
+	
+	
+	
 // -------------------------- login -----------------------------------------
 	public boolean login(String email, String passwaord) {
 
@@ -43,8 +56,18 @@ public class CompanyService extends ClientService {
 //
 	}
 	
+	
+	
+//	public void addCoupon(Coupon coupon, int companyId) throws AddCouponException {
+//		if (couponRepository.existsByTitleAndCompanyId(coupon.getTitle(),companyId )) {
+//			throw new AddCouponException("error while trying to add coupon, title already exist");
+//		} else {
+//			couponRepository.save(coupon);
+//			// no add exist title to other coupon of the same company
+//		}
+//	}
 // -------------------------- addCoupon -----------------------------------------
-	public void addCoupon(Coupon coupon) throws CouponSystemException {
+	public void addCoupon(Coupon coupon, int companyId) throws CouponSystemException {
 		if (this.couponRepository.existsByCompanyIdAndTitle(companyId, coupon.getTitle())) {
 			throw new CouponSystemException("addCoupon faild - coupon already exist for this company ");
 		}

@@ -2,19 +2,26 @@ package com.ronit;
 
 import org.springframework.boot.SpringApplication;
 
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.ronit.test.AdminControllerTester;
+import com.ronit.services.CompanyService;
+import com.ronit.test.AdminTester3;
 
-@ServletComponentScan
+//@ServletComponentScan
 @EnableScheduling
 @SpringBootApplication
 public class SpringBootApp {
 
 	public static void main(String[] args) {
+		
+//		ApplicationContext context = SpringApplication.run(Main.class);
+//		CompanyService com = context.getBean(CompanyService.class);
+//		AdminTester3 tester = context.getBean(AdminTester3.class);
+//		tester.startAdminTest();
 	
 //Testing by using CommandLineRunner - a Spring Boot interface with a run method. 
 //Spring Boot will automatically call the run method of all beans implementing this 
@@ -26,12 +33,12 @@ public class SpringBootApp {
 //		2.uncomment the wanted method for testing
 //		3.uncomment:
 	SpringApplication.run(SpringBootApp.class);
-	ApplicationContext context = SpringApplication.run(SpringBootApp.class);
-//	initCustomers(context.getBean(StoreService.class));
-	AdminControllerTester tester = context.getBean(AdminControllerTester.class);
-	tester.testApi();
-//}
-//		
+//	ApplicationContext context = SpringApplication.run(SpringBootApp.class);
+////	initCustomers(context.getBean(StoreService.class));
+//	AdminTester3 tester = context.getBean(AdminTester3.class);
+//	tester.startAdminTest();
+////}
+////		
 		 
 // ************ for testing with CouponExpirationDailyIob2 ************
 //		1.uncomment the CouponExpirationDailyIob2 Component

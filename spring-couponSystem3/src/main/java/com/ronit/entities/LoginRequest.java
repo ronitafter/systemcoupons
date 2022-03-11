@@ -25,14 +25,11 @@ public class LoginRequest {
 	private String email;
 	private String password;
 	
-	
-	
-	
-	public LoginRequest(int id, ClientType clientType, String email, String password) {
+	//do i need another constructor?
+	public LoginRequest(int id, ClientType clientType, String email) {
 		this.id = id;
 		this.clientType = clientType;
 		this.email = email;
-		this.password = password;
 	}
 
 
@@ -41,12 +38,9 @@ public class LoginRequest {
 		super();
 	}
 
-
-
 	public int getId() {
 		return id;
 	}
-
 
 
 	public void setId(int id) {
@@ -54,11 +48,9 @@ public class LoginRequest {
 	}
 
 
-
 	public ClientType getClientType() {
 		return clientType;
 	}
-
 
 
 	public void setClientType(ClientType clientType) {
@@ -66,11 +58,9 @@ public class LoginRequest {
 	}
 
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 
 	public void setEmail(String email) {
@@ -82,7 +72,6 @@ public class LoginRequest {
 	public String getPassword() {
 		return password;
 	}
-
 
 
 	public void setPassword(String password) {
