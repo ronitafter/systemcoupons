@@ -2,8 +2,6 @@ package com.ronit.services;
 
 import java.util.List;
 
-
-
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,13 +13,13 @@ import com.ronit.enums.ClientType;
 import com.ronit.exceptions.CouponSystemException;
 
 @Service
-@Transactional(rollbackFor = CouponSystemException.class )
+@Transactional(rollbackFor = CouponSystemException.class)
 public class AdminService extends ClientService {
 
 	@Value("${admin.email}")
-	private static final String email = "";
+	private static final String email = "admin@admin.com";
 	@Value("${admin.password}")
-	private static final String password = "";
+	private static final String password = "admin";
 
 	public boolean login(String email, String passwaord) {
 		System.out.println(AdminService.email);
@@ -29,21 +27,14 @@ public class AdminService extends ClientService {
 		boolean b = email.equals(AdminService.email) && passwaord.equals(AdminService.password);
 		return b;
 	}
-	
-
-	
 
 // ************************************ COMPANY *****************************************************************
 // ___________________________________ Add Company _____________________________________________________________
 	public void addCompany(Company company) throws CouponSystemException {
 		if (companyRepository.existsByNameAndEmail(company.getName(), company.getEmail())) {
-			// ompanyrepository.ExistsByNameOrEmail(company.getName(), company.getEmail()))
 			throw new CouponSystemException("addCompany faild - company with this name and email already exist ");
-
-		} else {
-
-			companyRepository.save(company);
-		}
+		} 
+		companyRepository.save(company);
 	}
 
 // ___________________________________ Update Company ___________________________________________________________
@@ -67,7 +58,7 @@ public class AdminService extends ClientService {
 // ___________________________________ Delete Company ____________________________________________________________
 	public void deleteCompany(int companyID) throws CouponSystemException {
 		Optional<Company> opt = this.companyRepository.findById(companyID);
-		
+
 		if (opt.isEmpty()) {
 			throw new CouponSystemException("deleteCompany faild - Company with this id not found");
 		}
@@ -125,7 +116,7 @@ public class AdminService extends ClientService {
 		if (opt.isEmpty()) {
 			throw new CouponSystemException("deleteCustomer faild - Customer with this id not found");
 		}
-		
+
 		opt.get();
 		customerRepository.deleteById(customerId);
 	}

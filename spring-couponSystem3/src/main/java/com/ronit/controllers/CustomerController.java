@@ -31,7 +31,7 @@ import com.ronit.utils.TokenManager;
 
 @RestController
 @RequestMapping("/customer")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController extends ClientController {
 
 	@Autowired
@@ -66,7 +66,7 @@ public class CustomerController extends ClientController {
 	}
 
 //---------------------------------- PurchaseCoupon -----------------------------------------------	
-	@GetMapping("/coupon")
+	@GetMapping("/coupon/{id}")
 //public ResponseEntity<?> PurchaseCoupon(@Valid @RequestBody Coupon coupon)
 	public ResponseEntity<?> PurchaseCoupon(@RequestHeader("authorization") String token, @RequestBody int couponId)
 			throws AuthorizationException, CouponSystemException {

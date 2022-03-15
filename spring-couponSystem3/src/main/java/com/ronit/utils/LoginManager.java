@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,8 @@ import com.ronit.services.AdminService;
 import com.ronit.services.ClientService;
 import com.ronit.services.CompanyService;
 import com.ronit.services.CustomerService;
-import com.ronit.services.CustomerServie;
+
+
 
 @Component
 public class LoginManager {
@@ -29,6 +31,8 @@ public class LoginManager {
 	@Autowired
 	private ApplicationContext context;
 //  clientService = applicationcontext.getBean(adminService.classe)
+	
+
 
 	
 
@@ -54,12 +58,14 @@ public class LoginManager {
 
 			 break;
 		case CUSTOMER:
-			clientService = context.getBean(CustomerServie.class);
+			clientService = context.getBean(CustomerService.class);
 //			String token2 = tokenManager.generateToken(clientType);
 
 			break;
 		case ADMINISTRATOR:
 			clientService = context.getBean(AdminService.class);
+			System.out.println("testttttt1");
+
 //			String token3 = tokenManager.generateToken(clientType);
 			break;
 		}

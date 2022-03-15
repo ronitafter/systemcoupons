@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.Date;
 
 import java.util.List;
@@ -39,7 +40,7 @@ import jdk.jfr.DataAmount;
 
 @Service
 @Scope("prototype")
-@Transactional(rollbackFor = CouponSystemException.class )
+@Transactional(rollbackFor = CouponSystemException.class)
 public class CustomerService extends ClientService {
 
 	private int customerId;

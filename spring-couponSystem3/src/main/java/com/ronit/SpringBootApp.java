@@ -3,6 +3,7 @@ package com.ronit;
 import org.springframework.boot.SpringApplication;
 
 
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.ronit.services.CompanyService;
 import com.ronit.test.AdminTester3;
 
-//@ServletComponentScan
 @EnableScheduling
 @SpringBootApplication
 public class SpringBootApp {
@@ -22,7 +22,7 @@ public class SpringBootApp {
 //		CompanyService com = context.getBean(CompanyService.class);
 //		AdminTester3 tester = context.getBean(AdminTester3.class);
 //		tester.startAdminTest();
-	
+//		https://us04web.zoom.us/j/77394738531?pwd=IHkcFUOIYJzLYibN5uBcoyyjM57bnf.1
 //Testing by using CommandLineRunner - a Spring Boot interface with a run method. 
 //Spring Boot will automatically call the run method of all beans implementing this 
 //interface, after the application context has been load

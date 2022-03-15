@@ -29,6 +29,7 @@ import com.ronit.exceptions.InvalidOperationException;
 import com.ronit.exceptions.LoginException;
 import com.ronit.job.RemoveExpiredTokens;
 import com.ronit.services.AdminService;
+import com.ronit.services.ClientService;
 import com.ronit.utils.LoginManager;
 import com.ronit.utils.TokenManager;
 
@@ -70,7 +71,7 @@ public class AdminController extends ClientController {
 //			loginRequest.getClientType();
 //			adminService = (AdminService) loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(),
 //					ClientType.ADMINISTRATOR);
-			loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), ClientType.ADMINISTRATOR);
+			ClientService clientService  =loginManager.login(loginRequest.getEmail(), loginRequest.getPassword(), ClientType.ADMINISTRATOR);
 //			String token = removeExpiredTokens.getNewToken();
 			String token = tokenManager.generateToken(ClientType.ADMINISTRATOR).toString();
 			return new ResponseEntity<String>(token, HttpStatus.OK);

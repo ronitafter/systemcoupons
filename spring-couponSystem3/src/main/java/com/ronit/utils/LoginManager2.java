@@ -45,6 +45,7 @@ public class LoginManager2 {
 		switch(clientType) {
 		case ADMINISTRATOR:
 			clientService=(ClientService)adminService;
+			System.out.println("ADMINISTRATOR");
 			
 			break;
 		case COMPANY:
@@ -57,6 +58,7 @@ public class LoginManager2 {
 			break;
 		}
 		if (!clientService.login(email, password)) {
+			System.out.println("Unauthorized...");
 			throw new LoginException(clientType.name().toString() + " Unauthorized");
 	}
 

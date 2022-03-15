@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ronit.beans.ResponseDto;
 import com.ronit.entities.Company;
 import com.ronit.entities.Coupon;
 import com.ronit.entities.LoginRequest;
+import com.ronit.entities.ResponseDto;
 import com.ronit.enums.ClientType;
 import com.ronit.exceptions.AuthorizationException;
 import com.ronit.exceptions.CouponSystemException;
@@ -202,7 +202,7 @@ public class CompanyController extends ClientController {
 		}
 	}
 // ----------------------getAllCompanyCoupons------------------
-	@GetMapping("/company")
+	@GetMapping("/company/coupons")
 	public List<Coupon> getAllCompanyCoupons(@RequestHeader("authorization") String token)
 			throws CouponSystemException, AuthorizationException {
 		if (tokenManager.isTokenExists(token)) {

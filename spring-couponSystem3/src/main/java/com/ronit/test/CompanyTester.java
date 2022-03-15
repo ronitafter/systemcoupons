@@ -70,7 +70,7 @@ public class CompanyTester implements CommandLineRunner {
 		Coupon coupon = new Coupon( Category.VACATION, "HFHFHF", "gfgf", Date.valueOf("2022-12-17"),
 				Date.valueOf("2021-12-18"), 5, 100.00, "ffff");
 		System.out.println(coupon.getCompany());
-		companyService.addCoupon(coupon);
+//		companyService.addCoupon(coupon);
 		System.out.println(coupon.getCompany());
 		
 	}

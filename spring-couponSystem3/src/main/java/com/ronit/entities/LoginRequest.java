@@ -21,14 +21,12 @@ import lombok.ToString;
 public class LoginRequest {
 
 	private int id;
-	private ClientType clientType;
 	private String email;
 	private String password;
 	
 	//do i need another constructor?
-	public LoginRequest(int id, ClientType clientType, String email) {
+	public LoginRequest(int id, String email) {
 		this.id = id;
-		this.clientType = clientType;
 		this.email = email;
 	}
 
@@ -47,15 +45,6 @@ public class LoginRequest {
 		this.id = id;
 	}
 
-
-	public ClientType getClientType() {
-		return clientType;
-	}
-
-
-	public void setClientType(ClientType clientType) {
-		this.clientType = clientType;
-	}
 
 
 	public String getEmail() {
@@ -82,7 +71,7 @@ public class LoginRequest {
 
 	@Override
 	public String toString() {
-		return "LoginRequest [id=" + id + ", clientType=" + clientType + ", email=" + email + ", password=" + password
+		return "LoginRequest [id=" + id + ",  email=" + email + ", password=" + password
 				+ "]";
 	}
 	

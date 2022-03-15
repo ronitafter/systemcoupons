@@ -20,9 +20,8 @@ import com.ronit.enums.ClientType;
 import com.ronit.exceptions.CouponSystemException;
 import com.ronit.services.AdminService;
 import com.ronit.utils.LoginManager;
-import com.sapir.beans.CustomerList;
 
-//@Component
+@Component
 public class AdminTester3 implements CommandLineRunner {
 	int companyID;
 

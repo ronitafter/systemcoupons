@@ -20,7 +20,6 @@ import com.ronit.enums.ClientType;
 
 
 @Service
-//@AllArgsConstructor
 public class TokenManager {
 	
 	
